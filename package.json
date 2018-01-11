@@ -8,7 +8,8 @@
         "vscode": "^1.19.0"
     },
     "categories": [
-        "Other"
+        "Other",
+        "Snippets"
     ],
     "activationEvents": [
         "*"
@@ -18,7 +19,11 @@
         "commands": [
             {
                 "command": "extension.createFileFromTemplateContextMenu",
-                "title": "Create file from template."
+                "title": "Create file from template"
+            },
+            {
+                "command": "extension.importTemplateToFile",
+                "title": "Import template to file"
             }
         ],
         "menus": {
@@ -26,6 +31,11 @@
                 {
                     "when": "explorerResourceIsFolder",
                     "command": "extension.createFileFromTemplateContextMenu"
+                }
+            ],
+            "editor/context": [
+                {
+                    "command": "extension.importTemplateToFile"
                 }
             ]
         }
