@@ -20,12 +20,25 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     let disposable2 = vscode.commands.registerTextEditorCommand("extension.importTemplateToFile", (editor, edit, file) => {
-
-        console.log("Das ist ein Test");
+        chooseAndInsertTemplate(editor);
     });
 
     context.subscriptions.push(disposable);
     context.subscriptions.push(disposable2);
+}
+
+function chooseAndInsertTemplate(editor: vscode.TextEditor) {
+    let workspaceFolder = getWorkSpaceFolder(editor.document.fileName);
+
+    chooseTemplate(workspaceFolder.uri.path).then(template => {
+        if (!template) {
+            return;
+        }
+
+        let templateString = loadTemplate(template);
+
+        editor.insertSnippet(new vscode.SnippetString(templateString));
+    });
 }
 
 function startCreateFileFromTemplate(clickedFolder: string) {
