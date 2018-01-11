@@ -10,7 +10,7 @@ import * as fs from 'fs';
 export function activate(context: vscode.ExtensionContext) {
     let disposable = vscode.commands.registerCommand('extension.createFileFromTemplateContextMenu', (folderName) => {
         if (!folderName) {
-            vscode.window.showInformationMessage('Please select a folder!');
+            vscode.window.showInformationMessage('Please right click a folder and select "Create file from template"');
             return;
         }
 
