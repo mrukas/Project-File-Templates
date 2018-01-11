@@ -43,6 +43,13 @@ function startCreateFileFromTemplate(clickedFolder: string) {
 
 function chooseTemplate(workspaceFolder: string): Thenable<string> {
     let templates = getTemplateFiles(workspaceFolder);
+
+    if (!templates.length) {
+        let templatePath = path.join(workspaceFolder, '.vscode', 'templates');
+        vscode.window.showInformationMessage(`Please add templates to ${templatePath}`);
+        return;
+    }
+
     return vscode.window.showQuickPick(templates.map(x => x.name)).then(item => {
         if (!item) {
             return;
@@ -64,6 +71,7 @@ function chooseFilename(templatePath: string): Thenable<string> {
             return;
         }
 
+        // If no extension is given use the extension of the template file.
         if (!path.extname(filename)) {
             filename = `${filename}${path.extname(templatePath)}`;
         }
