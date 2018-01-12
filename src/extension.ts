@@ -115,7 +115,8 @@ function createFileFromTemplate(targetfolder: string, templatePath: string) {
 }
 
 function loadTemplate(templatePath: string): string {
-    return fs.readFileSync(templatePath, { encoding: 'utf8' });
+    var templateString = fs.readFileSync(templatePath, { encoding: 'utf8' });
+    return replacePlaceholders(templateString);
 }
 
 function getWorkSpaceFolder(folder: string) {
@@ -135,6 +136,15 @@ function getTemplateFiles(workspaceDir: string): { name: string, path: string }[
     }
 
     return templates;
+}
+
+function replacePlaceholders(input: string): string {
+    let date = new Date();
+
+    return input
+        .replace(/\${YEAR}/i, date.getFullYear().toString())
+        .replace(/\${DAY}/i, ('0' + date.getDate()).slice(-2))
+        .replace(/\${MONTH}/i, ('0' + (date.getMonth() + 1)).slice(-2));
 }
 
 // this method is called when your extension is deactivated
