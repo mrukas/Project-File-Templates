@@ -14,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        let clickedFolderPath = folderName.path;
+        let clickedFolderPath = folderName.fsPath;
 
         startCreateFileFromTemplate(clickedFolderPath)
     });
@@ -30,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
 function chooseAndInsertTemplate(editor: vscode.TextEditor) {
     let workspaceFolder = getWorkSpaceFolder(editor.document.fileName);
 
-    chooseTemplate(workspaceFolder.uri.path).then(template => {
+    chooseTemplate(workspaceFolder.uri.fsPath).then(template => {
         if (!template) {
             return;
         }
@@ -44,7 +44,7 @@ function chooseAndInsertTemplate(editor: vscode.TextEditor) {
 function startCreateFileFromTemplate(clickedFolder: string) {
     let workspaceFolder = getWorkSpaceFolder(clickedFolder);
 
-    chooseTemplate(workspaceFolder.uri.path)
+    chooseTemplate(workspaceFolder.uri.fsPath)
         .then(templatePath => {
             if (!templatePath) {
                 return;
